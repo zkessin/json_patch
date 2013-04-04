@@ -1,0 +1,11 @@
+{application, json_patch,
+ [
+  {description, "json patch: http://tools.ietf.org/id/draft-ietf-appsawg-json-patch-10.txt"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]}
+
+ ]}.
