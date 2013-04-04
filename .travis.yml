@@ -1,0 +1,5 @@
+language    : erlang
+script      : rebar get-deps compile && rebar eunit
+otp_release :
+  - R15B02
+  - R15B01
