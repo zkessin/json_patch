@@ -19,8 +19,8 @@ patch_test_value_test() ->
 	     {<<"path">>, <<"/test">>},
 	     {<<"value">>, <<"1234">>}]],
     ?assertEqual(Data, json_patch:patch(Test, Data)),
-    ?assertError({badmatch,_}, json_patch:patch(Test, [])),
-    ?assertError({badmatch,_}, json_patch:patch(Test, [{<<"test">>, <<"333333">>}])).
+    ?assertEqual({error,conflict}, json_patch:patch(Test, [])),
+    ?assertEqual({error,conflict}, json_patch:patch(Test, [{<<"test">>, <<"333333">>}])).
     
 
 patch_remove_value_test() ->     
@@ -73,3 +73,9 @@ patch_data_as_json_test()->
     Patches = <<"[]">>,
     ?assertEqual(Data1, json_patch:patch(Patches, Data1)).
     
+make_patch_test() ->
+    Test = [[{<<"op">>, <<"move">>},
+	     {<<"from">>, <<"/test_before">>},
+	     {<<"path">>, <<"/test_after">>}]],
+    PatchFun = json_patch:make_patch(Test),
+    ?assert(is_function(PatchFun, 1)).
